@@ -1,0 +1,70 @@
+﻿@using Shop.Infrastructure.Models
+@model List<Order>
+@{
+    ViewData["Title"] = "Main";
+}
+<form asp-controller="Orders">
+    <div class="container">
+        <div class="row">
+            <div class="alert alert-info">
+                <strong>Info!</strong> To copy an order to inputs, you can simply click on the order.
+            </div>
+        </div>
+        <div class="row m-3">
+            <div class="col-sm-1">
+                <button class="btn btn-danger" formaction="@Url.Action("Delete")" formmethod="post">Delete</button>
+            </div>
+            <div class="col-sm-3">
+                <input class="form-control" name="Number" placeholder="Number" type="text" />
+            </div>
+            <div class="col-sm-3">
+                <input class="form-control" name="Name" placeholder="Name" type="text" />
+            </div>
+            <div class="col-sm-3">
+                <button class="btn btn-primary" formaction="@Url.Action("Add")" formmethod="post">Add</button>
+                <button class="btn btn-primary" formaction="@Url.Action("Change")" formmethod="post">Change</button>
+            </div>
+        </div>
+        @{
+            if (TempData["exception"] != null)
+            {
+                <div class="row">
+                    <div class="col">
+                        <div class="container">
+                            <div class="alert alert-danger">
+                                <strong>Warning!</strong> @TempData["exception"]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        <div class="row">
+            <div class="col">
+                <table class="table table-striped table-hover" style="cursor:pointer">
+                    <tr>
+                        <th class="checkbox-collumn">
+                            <input type="checkbox" id="mainCheckbox" onchange="SetCheckboxes(this)" />
+                            <label>ToDelete</label>
+                        </th>
+                        <th>Number</th>
+                        <th>Name</th>
+                        <th>CreatedBy</th>
+                    </tr>
+                    @{
+                        foreach (var order in Model)
+                        {
+                            <tr onclick="SelectLink('@order.Number', '@order.Name', '@order.CreatedBy')">
+                                <td><input id="checkbox" type="checkbox" name="numbers" value="@order.Number" /></td>
+                                <td>@order.Number</td>
+                                <td>@order.Name</td>
+                                <td>@order.CreatedBy</td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</form>
+

@@ -1,0 +1,54 @@
+﻿@using Shop.Services.Models
+@model string
+@{
+    ViewData["Title"] = "Registration";
+}
+<div class="login-page">
+    <div class="lead">
+        <h1>Create Account</h1>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-6">
+            <div class="card">
+
+                <div class="card-body">
+                    <form asp-controller="Auth">
+                        <input type="hidden" name="returnUrl" value="@Model" />
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" placeholder="Name" name="Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control" placeholder="Password" name="Password" autocomplete="off">
+                        </div>
+
+                        <div class="form-group m-3">
+                            <input class="form-check-input" type="checkbox" id="flexCheckDefault" name="RememberLogin" value="true">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Remember my login
+                            </label>
+                        </div>
+                        <div class="container m-3">
+                            <button class="btn btn-primary" formaction="@Url.Action("Create")" formmethod="post">Create</button>
+                            <button class="btn btn-secondary" formaction="@Url.Action("Login")" formmethod="get">Cancel</button>
+                        </div>
+                    </form>
+                    @{
+                        if (TempData["exception"] != null)
+                        {
+                            <div class="container">
+                                <div class="alert alert-danger">
+                                    <strong>Warning!</strong> @TempData["exception"]
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>  
+        </div>
+
+    </div>
+</div>
