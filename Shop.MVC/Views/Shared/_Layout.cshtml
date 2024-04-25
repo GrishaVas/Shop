@@ -13,37 +13,29 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Orders" asp-action="Index">Shop</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-expand-sm" id="mynavbar">
-                    <ul class="navbar-nav ml-auto">
-                        @{
-                            if (ViewData["CurrentUser"] == null)
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="Auth" asp-action="Login">
-                                        Login
+                @{
+                    if (ViewData["CurrentUser"] == null)
+                    {
+                        <a class="nav-link text-dark" asp-controller="Auth" asp-action="Login">
+                            Login
+                        </a>
+                    }
+                    else
+                    {
+                        <div class="dropdown">
+                            <a class="nav-link dropdown-toggle text-black" role="button" data-bs-toggle="dropdown">
+                                @ViewData["CurrentUser"]
+                            </a>
+                            <ul class="dropdown-menu" style="min-width:4rem">
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Auth" asp-action="Logout">
+                                        Logout
                                     </a>
                                 </li>
-                            }
-                            else
-                            {
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">@ViewData["CurrentUser"]</a>
-                                    <ul class="dropdown-menu" style="min-width:4rem">
-                                        <li>
-                                            <a class="nav-link link-info" asp-controller="Auth" asp-action="Logout">
-                                                Logout
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            }
-                        }
-                    </ul>
-                </div>
+                            </ul>
+                        </div>
+                    }
+                }
             </div>
         </nav>
     </header>
